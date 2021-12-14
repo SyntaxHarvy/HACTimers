@@ -43,16 +43,15 @@ HACTimers::~HACTimers() {}
      * @param countMax Max count for Up and down counter
      */
 void HACTimers::setup(
+    bool timeDelayTrigger,
     unsigned long duration,
-    TimerModes timerModes,
-    bool timeDelayTrigger
+    TimerModes timerModes
     )
 {
     this->_timeDelayTrigger = timeDelayTrigger;
     this->_duration = duration;
     this->_timerModes = timerModes;
     this->_timer = millis();
-
 }
 
 /**
@@ -64,8 +63,7 @@ void HACTimers::setup(
 void HACTimers::setup(
     unsigned long duration,
     TimerModes timerModes,
-    uint16 countMax
-    )
+    uint16 countMax)
 {
     this->_duration = duration;
     this->_timerModes = timerModes;
@@ -91,19 +89,25 @@ void HACTimers::handle()
         break;
     case TICK_TOGGLES:
         this->_processTicTacToggle();
+        break;
     case UP_COUNTER:
         this->_processCounter(true);
+        break;
     case DOWN_COUNTER:
         this->_processCounter(false);
+        break;
     case TIME_ON_DELAY:
         this->_processTonDelay();
+        break;
     case TIME_OFF_DELAY:
         this->_processTofDelay();
+        break;
     default:
         break;
     }
 
-    if(this->_onElapseFn) this->_onElapseFn((millis() - this->_timer));
+    if (this->_onElapseFn)
+        this->_onElapseFn((millis() - this->_timer));
 }
 
 /**
@@ -201,7 +205,7 @@ void HACTimers::_debug(const char *data)
 void HACTimers::_processTicTac()
 {
 
-    if ((millis() - this->_timer) > this->_duration)
+    if ((millis() - this->_timer) >= this->_duration)
     {
         this->_timer = millis();
         if (this->_onTickTackFn)
@@ -214,13 +218,14 @@ void HACTimers::_processTicTac()
 
 void HACTimers::_processTicTacToggle()
 {
-    if ((millis() - this->_timer) > this->_duration)
+    if ((millis() - this->_timer) >= this->_duration)
     {
         this->_timer = millis();
         this->_out = !this->_out;
         if (this->_onTickToggleFn)
             this->_onTickToggleFn(this->_out);
     }
+
 }
 
 /**
@@ -230,7 +235,7 @@ void HACTimers::_processTicTacToggle()
 
 void HACTimers::_processCounter(bool isUpCounter)
 {
-    if ((millis() - this->_timer) > this->_duration)
+    if ((millis() - this->_timer) >= this->_duration)
     {
         this->_timer = millis();
 
@@ -273,22 +278,27 @@ void HACTimers::_processCounter(bool isUpCounter)
      */
 void HACTimers::_processTonDelay()
 {
-    if ((millis() - this->_timer) > this->_duration && this->_timeDelayTrigger)
+    if(!this->_timeDelayTrigger) this->_timer = millis();
+
+    if ((millis() - this->_timer) >= this->_duration && this->_timeDelayTrigger)
     {
-        if(this->_onTimerDoneFn) this->_onTimerDoneFn(this->_timeDelayTrigger);
+        if (this->_onTimerDoneFn)
+            this->_onTimerDoneFn(this->_timeDelayTrigger);
         this->_cancelFlag = true;
     }
 }
-
 
 /**
      * Process time OFF delay.     
      */
 void HACTimers::_processTofDelay()
 {
-    if ((millis() - this->_timer) > this->_duration && !this->_timeDelayTrigger)
+    if(this->_timeDelayTrigger) this->_timer = millis();
+    
+    if ((millis() - this->_timer) >= this->_duration && !this->_timeDelayTrigger)
     {
-        if(this->_onTimerDoneFn) this->_onTimerDoneFn(this->_timeDelayTrigger);
+        if (this->_onTimerDoneFn)
+            this->_onTimerDoneFn(this->_timeDelayTrigger);
         this->_cancelFlag = true;
     }
 }

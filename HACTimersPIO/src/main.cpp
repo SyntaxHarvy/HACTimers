@@ -4,19 +4,16 @@ HACTimers gHACTimers;
 
 //Callback functions
 void onDebugCB(const char *msg);
-void onTimerDoneCB(bool out);
-void onElapseCB(unsigned long elapseTime);
+void onTickToggleCB(bool out);
 
 void setup() {
   Serial.begin(115200);
 
   //If debug of the library verbose is enabled via DEBUG_ESP_PORT definition
   gHACTimers.onDebug(onDebugCB);
-  
-  gHACTimers.onTimerDone(onTimerDoneCB);
-  gHACTimers.onElapse(onElapseCB);
-  bool offTrigger = false;       //Time Off delay start when the trigger goes off
-  gHACTimers.setup(offTrigger, 5000, TIME_OFF_DELAY);
+    
+  gHACTimers.onTickToggle(onTickToggleCB);
+  gHACTimers.setup(2000, TICK_TOGGLES);    
   gHACTimers.begin();
   
 }
@@ -28,12 +25,7 @@ void loop() {
 void onDebugCB(const char *msg){
   Serial.println(msg);
 }
-void onTimerDoneCB(bool out)
+void onTickToggleCB(bool out)
 {
-  Serial.println("Time delay done, Out =>" + String(out));
-}
-
-void onElapseCB(unsigned long elapseTime)
-{
-  Serial.println("Elapse in milliseconds =>" + String(elapseTime));
+  Serial.println("Out =>" + String(out));
 }
