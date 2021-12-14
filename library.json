@@ -1,0 +1,14 @@
+{
+  "name": "HaCTimers",
+  "keywords": "Timer, arduino",
+  "description": "An event driven arduino timer",
+  "repository":
+  {
+    "type": "git",
+    "url": "git@github.com:SyntaxHarvy/HACTimers.git"
+  },
+  "version": "0.1.0",
+  "frameworks": "arduino",
+  "platforms": "*"
+}
+
