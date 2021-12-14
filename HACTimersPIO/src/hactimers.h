@@ -92,9 +92,9 @@ class HACTimers{
         ~HACTimers();
 
         void setup(
+             bool timeDelayTrigger,
             unsigned long duration,
-            TimerModes timerModes,
-            bool timeDelayTrigger
+            TimerModes timerModes           
         );
 
         void setup(
@@ -126,7 +126,7 @@ class HACTimers{
         uint16 _count = 0;
         uint16 _countMax = DEFAULT_COUNTER_MAX;
         TimerModes _timerModes;       
-        bool _out;
+        bool _out = false;
         bool _timeDelayTrigger;
         bool _cancelFlag = false;
 
