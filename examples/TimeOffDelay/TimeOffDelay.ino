@@ -16,7 +16,7 @@ void setup() {
   gHACTimers.onTimerDone(onTimerDoneCB);
   gHACTimers.onElapse(onElapseCB);
   bool offTrigger = false;       //Time Off delay start when the trigger goes off
-  gHACTimers.setup(5000, TIME_OFF_DELAY, offTrigger);
+  gHACTimers.setup(offTrigger, 5000, TIME_OFF_DELAY);
   gHACTimers.begin();
   
 }
