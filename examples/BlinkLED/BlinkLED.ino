@@ -1,10 +1,14 @@
+/*
+ * Blink example with 2 seconds interval
+ */
+
 #include <hactimers.h>
 
 HACTimers gHACTimers;
 
 //Callback functions
 void onDebugCB(const char *msg);
-void onTimerDoneCB(bool out);
+void onTickToggleCB(bool out);
 void onElapseCB(unsigned long elapseTime);
 
 void setup() {
@@ -12,11 +16,15 @@ void setup() {
 
   //If debug of the library verbose is enabled via DEBUG_ESP_PORT definition
   gHACTimers.onDebug(onDebugCB);
-    
-  gHACTimers.onTimerDone(onTimerDoneCB);
+
+  //Set GPIO4 as an OUTPUT
+  pinMode(16, OUTPUT);
+  //Turn OFF GPIO16
+  digitalWrite(16, LOW);
+
+  gHACTimers.onTickToggle(onTickToggleCB);
   gHACTimers.onElapse(onElapseCB);
-  gHACTimers.setup(10000, TIME_OFF_DELAY);  
-  gHACTimers.timeDelayTrigger = false;             //Once trigger is false then time off delay will start counting
+  gHACTimers.setup(2000, TICK_TOGGLES);    
   gHACTimers.begin();
   
 }
@@ -28,9 +36,11 @@ void loop() {
 void onDebugCB(const char *msg){
   Serial.println(msg);
 }
-void onTimerDoneCB(bool out)
+void onTickToggleCB(bool out)
 {
   Serial.println("Out =>" + String(out));
+  //Set GPIO16 to out value
+  digitalWrite(16, out);
 }
 void onElapseCB(unsigned long elapseTime)
 {

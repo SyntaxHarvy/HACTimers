@@ -1,3 +1,7 @@
+/*
+ * This example will turn off the GPIO16 after GPIO2 held to ground for 10secs
+ */
+
 #include <hactimers.h>
 
 HACTimers gHACTimers;
@@ -12,17 +16,27 @@ void setup() {
 
   //If debug of the library verbose is enabled via DEBUG_ESP_PORT definition
   gHACTimers.onDebug(onDebugCB);
-    
+
+  //GPIO2 as an INPUT_PULLUP
+  pinMode(2, INPUT_PULLUP);
+  //Set GPIO4 as an OUTPUT
+  pinMode(16, OUTPUT);
+  //Turn ON GPIO16
+  digitalWrite(16, HIGH);
+
   gHACTimers.onTimerDone(onTimerDoneCB);
   gHACTimers.onElapse(onElapseCB);
-  gHACTimers.setup(10000, TIME_OFF_DELAY);  
-  gHACTimers.timeDelayTrigger = false;             //Once trigger is false then time off delay will start counting
+  gHACTimers.setup(10000, TIME_OFF_DELAY);    
   gHACTimers.begin();
   
 }
 
 void loop() {
   gHACTimers.handle();
+
+  //When the input GPIO2 held for 10secs then it will deactivate the output GPIO16
+  gHACTimers.timeDelayTrigger = digitalRead(2);  
+
 }
 
 void onDebugCB(const char *msg){
@@ -31,6 +45,9 @@ void onDebugCB(const char *msg){
 void onTimerDoneCB(bool out)
 {
   Serial.println("Out =>" + String(out));
+
+  //Set GPIO16 to out value
+  digitalWrite(16, out);
 }
 void onElapseCB(unsigned long elapseTime)
 {

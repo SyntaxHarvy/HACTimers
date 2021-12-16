@@ -25,19 +25,8 @@ The **HACTimers** has a define callbacks for various timer events:
     This event will be raised all the time and give the total elapse time since the timer started.
 
 
-Libary setup function overloads:
+Libary setup function:
 
-- setup function overload #1
-
-```cpp
-void setup(
-    unsigned long duration,
-    TimerModes timerModes,
-    bool timeDelayTrigger
-);
-
-```
-- setup function overload #2
 
 ```cpp
 void setup(
@@ -235,7 +224,8 @@ gHACTimers.onElapse(onElapseCB);
 
 ```cpp
 bool onTrigger = true;       //Time on delay start when the trigger goes on
-gHACTimers.setup(5000, TIME_ON_DELAY, onTrigger);
+gHACTimers.setup(5000, TIME_ON_DELAY);
+gHACTimers.timeDelayTrigger = onTrigger;
 ```
 
 - Begin the timer.
@@ -273,7 +263,8 @@ gHACTimers.onElapse(onElapseCB);
 
 ```cpp
 bool offTrigger = false;       //Time Off delay start when the trigger goes off
-gHACTimers.setup(5000, TIME_OFF_DELAY, offTrigger);
+gHACTimers.setup(5000, TIME_OFF_DELAY);
+gHACTimers.timeDelayTrigger = offTrigger;
 ```
 
 - Begin the timer.
@@ -290,18 +281,17 @@ gHACTimers.setup(5000, TIME_OFF_DELAY, offTrigger);
 ```cpp
 gHACTimers.handle();
 ```
+## Public Variables
+
+- **timeDelayTrigger**
+
+```cpp
+bool timeDelayTrigger;
+```
 
 ## Public Function Definitions
 
 - **setup**
-
-```cpp
-void setup(
-    unsigned long duration,
-    TimerModes timerModes,
-    bool timeDelayTrigger
-);
-```
 
 ```cpp
 void setup(
