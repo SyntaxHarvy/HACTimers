@@ -88,14 +88,14 @@ enum TimerModes{
 /* #region CLASS_DECLARATION */
 class HACTimers{ 
     public:
+        bool timeDelayTrigger;
         HACTimers();
         ~HACTimers();
 
-        void setup(
-             bool timeDelayTrigger,
+        /*void setup(
             unsigned long duration,
             TimerModes timerModes           
-        );
+        );*/
 
         void setup(
             unsigned long duration = DEFAULT_DURATION_MS,
@@ -126,8 +126,7 @@ class HACTimers{
         uint16 _count = 0;
         uint16 _countMax = DEFAULT_COUNTER_MAX;
         TimerModes _timerModes;       
-        bool _out = false;
-        bool _timeDelayTrigger;
+        bool _out = false;        
         bool _cancelFlag = false;
 
         t_funcHacTimer00 _onTickTackFn;

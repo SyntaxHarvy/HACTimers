@@ -42,17 +42,15 @@ HACTimers::~HACTimers() {}
      * @param timerModes Timer modes defined by enum TimerModes
      * @param countMax Max count for Up and down counter
      */
-void HACTimers::setup(
-    bool timeDelayTrigger,
+/*void HACTimers::setup(    
     unsigned long duration,
     TimerModes timerModes
     )
-{
-    this->_timeDelayTrigger = timeDelayTrigger;
+{    
     this->_duration = duration;
     this->_timerModes = timerModes;
     this->_timer = millis();
-}
+}*/
 
 /**
      * Timer setup.           
@@ -69,6 +67,11 @@ void HACTimers::setup(
     this->_timerModes = timerModes;
     this->_countMax = countMax;
     this->_timer = millis();
+
+    if(timerModes == TIME_ON_DELAY)
+        this->timeDelayTrigger = false;
+    if(timerModes == TIME_OFF_DELAY)
+        this->timeDelayTrigger = true;
 
     DEBUG_CALLBACK_HAC_TIMERS("Timer setup done.");
 }
@@ -278,12 +281,12 @@ void HACTimers::_processCounter(bool isUpCounter)
      */
 void HACTimers::_processTonDelay()
 {
-    if(!this->_timeDelayTrigger) this->_timer = millis();
+    if(!this->timeDelayTrigger) this->_timer = millis();
 
-    if ((millis() - this->_timer) >= this->_duration && this->_timeDelayTrigger)
+    if ((millis() - this->_timer) >= this->_duration && this->timeDelayTrigger)
     {
         if (this->_onTimerDoneFn)
-            this->_onTimerDoneFn(this->_timeDelayTrigger);
+            this->_onTimerDoneFn(this->timeDelayTrigger);
         this->_cancelFlag = true;
     }
 }
@@ -293,12 +296,12 @@ void HACTimers::_processTonDelay()
      */
 void HACTimers::_processTofDelay()
 {
-    if(this->_timeDelayTrigger) this->_timer = millis();
+    if(this->timeDelayTrigger) this->_timer = millis();
     
-    if ((millis() - this->_timer) >= this->_duration && !this->_timeDelayTrigger)
+    if ((millis() - this->_timer) >= this->_duration && !this->timeDelayTrigger)
     {
         if (this->_onTimerDoneFn)
-            this->_onTimerDoneFn(this->_timeDelayTrigger);
+            this->_onTimerDoneFn(this->timeDelayTrigger);
         this->_cancelFlag = true;
     }
 }
