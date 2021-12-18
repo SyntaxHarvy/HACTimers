@@ -1,0 +1,33 @@
+#######################################
+# Syntax Coloring Map For HACTimers
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+HACTIMERS	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin 	KEYWORD2
+setup 	KEYWORD2
+onDebug 	KEYWORD2
+onTickTack 	KEYWORD2
+onTickToggle 	KEYWORD2
+onCounting 	KEYWORD2
+onCountingDone 	KEYWORD2
+onTimerDone 	KEYWORD2
+onElapse 	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+TICK_TAC	LITERAL1
+TICK_TOGGLES	LITERAL1
+UP_COUNTER	LITERAL1
+DOWN_COUNTER	LITERAL1
+TIME_OFF_DELAY	LITERAL1
+TIME_ON_DELAY	LITERAL1
