@@ -1,8 +1,9 @@
 /*
  * This example will turn on the GPIO16 after GPIO2 held to ground for 10secs
+ * https://github.com/SyntaxHarvy/HACTimers
  */
 
-#include <hactimers.h>
+#include <HACTimers.h>
 
 HACTimers gHACTimers;
 
