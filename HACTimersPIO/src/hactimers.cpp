@@ -128,6 +128,33 @@ void HACTimers::begin()
 }
 
 /**
+     * Stop the timer
+     */
+
+void HACTimers::stop()
+{
+    this->_cancelFlag = true;
+}
+
+/**
+     * Resume the timer
+     */
+
+void HACTimers::resume()
+{
+    this->_cancelFlag = false;
+}
+
+/**
+     * Reset the timer
+     */
+
+void HACTimers::reset()
+{
+    this->_timer = millis();
+}
+
+/**
      * Debug Callback function.           
      * @param fn Standard non return function with a const * char parameter.
      */
@@ -144,6 +171,16 @@ void HACTimers::onTickTack(t_funcHacTimer00 fn)
 {
     this->_onTickTackFn = fn;
 }
+
+/**
+     * TicTac Callback function.           
+     * @param fn Standard non return function with a const * char parameter.
+     */
+void HACTimers::onTickTack(t_funcHacTimer03 fn)
+{
+    this->_onTickTackFn2 = fn;
+}
+
 
 /**
      * Timer counting.           
@@ -213,6 +250,10 @@ void HACTimers::_processTicTac()
         this->_timer = millis();
         if (this->_onTickTackFn)
             this->_onTickTackFn();
+
+        if (this->_onTickTackFn2)
+            this->_onTickTackFn2(this->timerIndex);
+
     }
 }
 /**
