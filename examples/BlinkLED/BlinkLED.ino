@@ -1,8 +1,9 @@
 /*
  * Blink example with 2 seconds interval
+ * https://github.com/SyntaxHarvy/HACTimers
  */
 
-#include <hactimers.h>
+#include <HACTimers.h>
 
 HACTimers gHACTimers;
 

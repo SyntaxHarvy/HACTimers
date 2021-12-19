@@ -1,5 +1,8 @@
-#include <hactimers.h>
+/*
+ * https://github.com/SyntaxHarvy/HACTimers
+ */
 
+#include <HACTimers.h>
 HACTimers gHACTimers;
 
 //Callback functions

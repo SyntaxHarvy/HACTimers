@@ -1,4 +1,4 @@
-#include <hactimers.h>
+#include <HACTimers.h>
 
 HACTimers gHACTimers;
 
