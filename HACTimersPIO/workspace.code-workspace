@@ -1,8 +1,15 @@
 {
 	"folders": [
 		{
-			"path": "."
+			"name": "HACIOTCorePIO",
+			"path": "..\\..\\HACIOTCore\\HACIOTCorePIO"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"files.associations": {
+			"memory": "cpp",
+			"random": "cpp",
+			"optional": "cpp"
+		}
+	}
 }

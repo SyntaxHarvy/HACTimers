@@ -289,6 +289,12 @@ gHACTimers.handle();
 bool timeDelayTrigger;
 ```
 
+- **timerIndex**
+
+```cpp
+uint8_t timerIndex;
+```
+
 ## Public Function Definitions
 
 - **setup**
@@ -331,6 +337,7 @@ void handle();
 ```cpp
 void onDebug(t_funcHacTimer01 fn);
 void onTickTack(t_funcHacTimer00 fn);
+void onTickTack(t_funcHacTimer03 fn);
 void onTickToggle(t_funcHacTimer02 fn);
 void onCounting(t_funcHacTimer03 fn);
 void onCountingDone(t_funcHacTimer00 fn);

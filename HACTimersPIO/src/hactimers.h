@@ -89,6 +89,7 @@ enum TimerModes{
 class HACTimers{ 
     public:
         bool timeDelayTrigger;
+        uint8_t timerIndex;
         HACTimers();
         ~HACTimers();
 
@@ -106,6 +107,7 @@ class HACTimers{
         void begin();
         void stop();
         void resume();
+        void reset();
 
         //Loop handle function
         void handle();          
@@ -114,6 +116,7 @@ class HACTimers{
         // Event Function Declaration
         void onDebug(t_funcHacTimer01 fn);              // Debug related events
         void onTickTack(t_funcHacTimer00 fn);
+        void onTickTack(t_funcHacTimer03 fn);
         void onTickToggle(t_funcHacTimer02 fn);
         void onCounting(t_funcHacTimer03 fn);
         void onCountingDone(t_funcHacTimer00 fn);
@@ -130,6 +133,7 @@ class HACTimers{
         bool _cancelFlag = false;
 
         t_funcHacTimer00 _onTickTackFn;
+        t_funcHacTimer03 _onTickTackFn2;
         t_funcHacTimer01 _onDebugFn;        
         t_funcHacTimer02 _onTickToggleFn;
         t_funcHacTimer03 _onCountingFn;
