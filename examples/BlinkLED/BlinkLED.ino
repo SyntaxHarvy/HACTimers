@@ -3,7 +3,7 @@
  * https://github.com/SyntaxHarvy/HACTimers
  */
 
-#include <HACTimers.h>
+#include <HaCTimers.h>
 
 HACTimers gHACTimers;
 
