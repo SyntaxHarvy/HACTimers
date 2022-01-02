@@ -1,51 +1,35 @@
-#include <HACTimers.h>
+/*
+ * https://github.com/SyntaxHarvy/HACTimers
+ */
+
+#include <HaCTimers.h>
 
 HACTimers gHACTimers;
 
 //Callback functions
 void onDebugCB(const char *msg);
-void onTimerDoneCB(bool out);
-void onElapseCB(unsigned long elapseTime);
+void onTickToggleCB(bool out);
 
 void setup() {
   Serial.begin(115200);
 
   //If debug of the library verbose is enabled via DEBUG_ESP_PORT definition
   gHACTimers.onDebug(onDebugCB);
-
-  //Let GPIO2 as an INPUT_PULLUP
-  pinMode(2, INPUT_PULLUP);
-  //Let GPIO4 as an OUTPUT
-  pinMode(16, OUTPUT);
-  digitalWrite(16, LOW);
-
-  gHACTimers.onTimerDone(onTimerDoneCB);
-  gHACTimers.onElapse(onElapseCB);
-  gHACTimers.setup(10000, TIME_ON_DELAY);    
+    
+  gHACTimers.onTickToggle(onTickToggleCB);
+  gHACTimers.setup(2000, TICK_TOGGLES);    
   gHACTimers.begin();
   
 }
 
 void loop() {
   gHACTimers.handle();
-
-  //When the input GPIO2 held for 10secs then it will activate the output GPIO16
-  gHACTimers.timeDelayTrigger = digitalRead(2);  
-
-  Serial.println(digitalRead(2));           
 }
 
 void onDebugCB(const char *msg){
   Serial.println(msg);
 }
-void onTimerDoneCB(bool out)
+void onTickToggleCB(bool out)
 {
   Serial.println("Out =>" + String(out));
-
-  //Set GPIO16 to out value
-  digitalWrite(16, out);
-}
-void onElapseCB(unsigned long elapseTime)
-{
-  Serial.println("Elsapse time =>" + String(elapseTime));
 }
