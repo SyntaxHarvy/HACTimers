@@ -49,7 +49,6 @@
     {                                          \
         HACTimers::_debug(msg); \
     }
-
 #else
 
 #define DEBUG_MSG_HAC_TIMERS(msg, ...)
@@ -146,6 +145,7 @@ class HACTimers{
         //tListGenCbFnHaC1ULIntTimersSub _onElapseFn;
 
         void _debug(const char *data); // Function prototype declaration for debug function
+        void _debug(const __FlashStringHelper* data);
         void _processTicTac();
         void _processTicTacToggle();
         void _processCounter(bool isUpCounter = true);

@@ -73,7 +73,7 @@ void HACTimers::setup(
     if(timerModes == TIME_OFF_DELAY)
         this->timeDelayTrigger = true;
 
-    DEBUG_CALLBACK_HAC_TIMERS("Timer setup done.");
+    DEBUG_CALLBACK_HAC_TIMERS(F("Timer setup done."));
 }
 
 /**
@@ -228,8 +228,21 @@ void HACTimers::onTickToggle(t_funcHacTimer02 fn)
 }
 
 /**
+ * Debug function.
+ * @param data Debug message .
+ */
+void HACTimers::_debug(const __FlashStringHelper* data)
+{
+    char buffer[128];
+    memset(buffer, '\0', sizeof(buffer));
+    strcpy_P(buffer, (const char*) data);
+    if (this->_onDebugFn)
+        this->_onDebugFn(String(String(HAC_TIMER_DEBUG_PREFIX) + " " + String(buffer)).c_str());
+}
+
+/**
      * Debug function.     
-     * @param data const char .
+     * @param data Debug message.
      */
 
 void HACTimers::_debug(const char *data)

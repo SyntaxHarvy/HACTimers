@@ -3,6 +3,10 @@
 		{
 			"name": "HACIOTCorePIO",
 			"path": "..\\..\\HACIOTCore\\HACIOTCorePIO"
+		},
+		{
+			"name": "HaCWifiManagerPIO",
+			"path": "..\\..\\HACWifiManager\\HaCWifiManagerPIO"
 		}
 	],
 	"settings": {
