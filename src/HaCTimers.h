@@ -30,7 +30,7 @@
 #define DEFAULT_DURATION_MS 2000    //Default duration in milliseconds
 #define DEFAULT_COUNTER_MAX 255     //Default maximum counter
 
-#ifdef DEBUG_ESP_PORT
+#if defined(DEBUG_ESP_PORT) || defined(HAC_ENABLE_DEBUG)
 
 #define DEBUG_HAC_TIMERS Serial // Custom serial debug
 #define DEBUG_MSG_HAC_TIMERS(msg, ...)                   \
