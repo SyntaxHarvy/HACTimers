@@ -1,6 +1,6 @@
 /**
  *
- * @file hactimers.h
+ * @file HaCTimers.h
  * @date 12.12.2021
  * @author Harvy Aronales Costiniano
  *
@@ -154,4 +154,7 @@ class HACTimers{
 
 };
 /* #endregion */
+
+#include "HaCTimers-impl.h"
+
 #endif

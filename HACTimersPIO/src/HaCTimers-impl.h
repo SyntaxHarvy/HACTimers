@@ -1,6 +1,6 @@
 /**
  *
- * @file hactimers.cpp
+ * @file HaCTimers-impl.h
  * @date 12.12.2021
  * @author Harvy Aronales Costiniano
  *
