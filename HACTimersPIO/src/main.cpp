@@ -9,16 +9,25 @@ HACTimers gHACTimers;
 //Callback functions
 void onDebugCB(const char *msg);
 void onTickToggleCB(bool out);
-
+bool _isBusyFlag = true;
 void setup() {
   Serial.begin(115200);
 
   //If debug of the library verbose is enabled via DEBUG_ESP_PORT definition
+  gHACTimers.timeDelayTrigger = _isBusyFlag;
   gHACTimers.onDebug(onDebugCB);
-    
-  gHACTimers.onTickToggle(onTickToggleCB);
-  gHACTimers.setup(2000, TICK_TOGGLES);    
+  
+  gHACTimers.onTimerDone([&](bool out){
+      _isBusyFlag = false;
+      Serial.printf("Busy flag : %d \n", (uint8_t)_isBusyFlag);          
+      gHACTimers.reset();
+  });
+  gHACTimers.onElapse([&](unsigned long elapse)
+  {
+    Serial.printf("Elapsed : %ld \n", elapse);
+  });
   gHACTimers.begin();
+  gHACTimers.setup(5000, TIME_ON_DELAY);
   
 }
 
