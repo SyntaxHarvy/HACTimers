@@ -68,10 +68,10 @@ void HACTimers::setup(
     this->_countMax = countMax;
     this->_timer = millis();
 
-    if(timerModes == TIME_ON_DELAY)
+   /* if(timerModes == TIME_ON_DELAY)
         this->timeDelayTrigger = false;
     if(timerModes == TIME_OFF_DELAY)
-        this->timeDelayTrigger = true;
+        this->timeDelayTrigger = true;*/
 
     DEBUG_CALLBACK_HAC_TIMERS(F("Timer setup done."));
 }
@@ -125,6 +125,8 @@ void HACTimers::begin()
         this->_count = 0;
     if (this->_timerModes == DOWN_COUNTER)
         this->_count = this->_countMax;
+
+    DEBUG_CALLBACK_HAC_TIMERS(F("Timer started."));
 }
 
 /**
@@ -152,6 +154,7 @@ void HACTimers::resume()
 void HACTimers::reset()
 {
     this->_timer = millis();
+    this->_cancelFlag = false;
 }
 
 /**
@@ -335,13 +338,15 @@ void HACTimers::_processCounter(bool isUpCounter)
      */
 void HACTimers::_processTonDelay()
 {
+    
     if(!this->timeDelayTrigger) this->_timer = millis();
 
     if ((millis() - this->_timer) >= this->_duration && this->timeDelayTrigger)
     {
+        this->_cancelFlag = true;
         if (this->_onTimerDoneFn)
             this->_onTimerDoneFn(this->timeDelayTrigger);
-        this->_cancelFlag = true;
+        
     }
 }
 
@@ -354,9 +359,9 @@ void HACTimers::_processTofDelay()
     
     if ((millis() - this->_timer) >= this->_duration && !this->timeDelayTrigger)
     {
-        if (this->_onTimerDoneFn)
-            this->_onTimerDoneFn(this->timeDelayTrigger);
         this->_cancelFlag = true;
+        if (this->_onTimerDoneFn)
+            this->_onTimerDoneFn(this->timeDelayTrigger);        
     }
 }
 
