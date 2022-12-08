@@ -92,7 +92,7 @@ void onCountingCB(uint16 count)
     rd = red1.handle(count);
     digitalWrite(GREEN_PIN1, gr);
     digitalWrite(ORANGE_PIN1, og);
-    digitalWrite(ORANGE_PIN1, rd);
+    digitalWrite(RED_PIN1, rd);
 
     if((gr + og + rd) > 1 || (gr + og + rd) == 0)
     {
