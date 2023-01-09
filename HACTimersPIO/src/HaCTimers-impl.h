@@ -61,7 +61,7 @@ HACTimers::~HACTimers() {}
 void HACTimers::setup(
     unsigned long duration,
     TimerModes timerModes,
-    uint16 countMax)
+    uint16_t countMax)
 {
     this->_duration = duration;
     this->_timerModes = timerModes;

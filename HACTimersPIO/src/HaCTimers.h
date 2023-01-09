@@ -62,13 +62,16 @@
 
 /* #region EXTERNAL_DEPENDENCY */
 #include <Arduino.h>
+#ifdef ESP32
+#include<functional>
+#endif
 /* #endregion */
 
 /* #region GLOBAL_DECLARATION */
 typedef std::function<void()> t_funcHacTimer00;
 typedef std::function<void(const char *)> t_funcHacTimer01; 
 typedef std::function<void(bool)> t_funcHacTimer02;
-typedef std::function<void(uint16)> t_funcHacTimer03; 
+typedef std::function<void(uint16_t)> t_funcHacTimer03; 
 typedef std::function<void(unsigned long)> t_funcHacTimer04; 
  
 
@@ -100,7 +103,7 @@ class HACTimers{
         void setup(
             unsigned long duration = DEFAULT_DURATION_MS,
             TimerModes timerModes = TICK_TAC,
-            uint16 countMax = DEFAULT_COUNTER_MAX
+            uint16_t countMax = DEFAULT_COUNTER_MAX
             );
 
         void begin();
@@ -125,8 +128,8 @@ class HACTimers{
     private:
         unsigned long _timer = millis();
         unsigned long _duration;
-        uint16 _count = 0;
-        uint16 _countMax = DEFAULT_COUNTER_MAX;
+        uint16_t _count = 0;
+        uint16_t _countMax = DEFAULT_COUNTER_MAX;
         TimerModes _timerModes;       
         bool _out = false;        
         bool _cancelFlag = false;
