@@ -7,8 +7,8 @@
     "type": "git",
     "url": "git@github.com:SyntaxHarvy/HACTimers.git"
   },
-  "version": "0.1.2",
+  "version": "0.1.3",
   "frameworks": "arduino",
-  "platforms": "*"
+  "platforms": "esp8266, esp32"
 }
 
